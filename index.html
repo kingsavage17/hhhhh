@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Board - DOM Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color:green;
+        }
+        
+        .input-section {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        #task-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+        
+        .columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .column {
+            background-color: #dbd6d6;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        
+        .column-header {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            margin-bottom: 15px;
+        }
+        
+        #todo-column .column-header {
+            border-color: #ff9800;
+        }
+        
+        #in-progress-column .column-header {
+            border-color: #2196F3;
+        }
+        
+        #completed-column .column-header {
+            border-color: #4CAF50;
+        }
+        
+        .task-item {
+            background-color: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgbai(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .task-text {
+            flex: 1;
+            word-break: break-word;
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .move-btn, .edit-btn, .delete-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        body {
+            background-color: #181a1b;
+            color: #e0e0e0;
+        }
+        .container {
+            background-color: #23272a;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        }
+        .column {
+            background-color: #2c2f33;
+        }
+        .task-item {
+            background-color: #23272a;
+            color: #e0e0e0;
+        }
+        .stats {
+            background-color: #202225;
+        }
+        input, #task-input {
+            background-color: #181a1b;
+            color: #e0e0e0;
+            border: 1px solid #444;
+        }
+        .btn {
+            background-color: #5865f2;
+        }
+        .btn:hover {
+            background-color: #4752c4;
+        }
+        
+        .move-btn {
+            color: #2196F3;
+        }
+        
+        .edit-btn {
+            color: #ff9800;
+        }
+        
+        .delete-btn {
+            color: #f44336;
+        }
+        
+        .move-btn:hover, .edit-btn:hover, .delete-btn:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .task-item.dragging {
+            opacity: 0.5;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Board CRUD Todo</h1>
+        
+        <div class="input-section">
+            <input type="text" id="task-input" placeholder="Add a new task...">
+            <button id="add-task-btn" class="btn">Add Task</button>
+        </div>
+        <div class="columns">
+            <div class="column" id="todo-column">
+                <h2 class="column-header">To Do</h2>
+                <div class="tasks-container" id="todo-tasks"></div>
+            </div>
+            
+            <div class="column" id="in-progress-column">
+                <h2 class="column-header">In Progress</h2>
+                <div class="tasks-container" id="in-progress-tasks"></div>
+            </div>
+            
+            <div class="column" id="completed-column">
+                <h2 class="column-header">Completed</h2>
+                <div class="tasks-container" id="completed-tasks"></div>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="todo-count">0</div>
+                <div class="stat-label">To Do</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="in-progress-count">0</div>
+                <div class="stat-label">In Progress</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="completed-count">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-count">0</div>
+                <div class="stat-label">Total</div>
+            </div>
+        </div>
+    </div>
+
+
+  <script>
+        // 📌 GET DOM ELEMENTS (used throughout the app)
+            // Input field where user types the task
+            const input = document.getElementById('task-input');
+            const taskBtn = document.getElementById('add-task-btn');
+
+            const todos = document.getElementById('todo-tasks');
+            const inProgress = document.getElementById('in-progress-tasks');
+            const completed = document.getElementById('completed-tasks');
+
+            const todoCount = document.getElementById('todo-count');
+            const inProgressCount = document.getElementById('in-progress-count');
+            const completedCount = document.getElementById('completed-count');
+            const totalCount = document.getElementById('total-count');
+
+            // Button to add task
+            // Container for "To Do" tasks
+            // Container for "In Progress" tasks
+            // Container for "Completed" tasks
+            // Stats counters
+            //...........................................................................................
+
+
+            input.addEventListener('keypress',(e)=>{
+                if(e.key==="Enter") taskBtn.click()
+            })
+
+            taskBtn.addEventListener('click',()=>{
+                const text = input.value.trim();
+
+                if(text){
+                    const task = createTask(text);
+                    todos.appendChild(task);
+                    input.value = ''; // Clear input field
+                      updateCounters();
+                }
+            })
+        // ✅ CREATE: create a btn eventlistener Add new task when the "Add Task" button is clicked 
+            function createTask(text){
+                const box = document.createElement('div');
+                box.className = 'task-item';
+                
+                const taskText = document.createElement('div');
+                taskText.className = 'task-text';
+                taskText.textContent = text;
+                const action = document.createElement('div');
+                action.className = 'task-action';
+                
+                const move = document.createElement('button');
+                move.className = 'move-btn';
+                move.innerHTML = '&#8594; '; //arrow icon
+                move.onclick=()=>{ 
+                
+                
+
+                   
+                    if(box.parentElement===inProgress) completed.appendChild(box);
+                    else if (box.parentElement===completed) todos.appendChild(box);
+                    else if (box.parentElement===todos) inProgress.appendChild(box);
+                    else todos.appendChild(box);
+                    updateCounters()
+                }
+                
+                 const edit = document.createElement('button')
+                 edit.className= 'edit-btn'
+                 edit.innerHTML='&#9998;'//&#10006;
+                 edit.onclick=()=>{
+                 const newText=prompt('Enter new Text',taskText.textContent)
+                    if(newText) taskText.textContent=newText;
+
+                    }
+                    const del = document.createElement('button')
+                    del.className='del-btn'
+                    del.innerHTML='&#10006'
+                    del.onclick=()=>{
+                        box.remove();
+                        updateCounters();
+                    }
+                    action.appendChild(del);
+                      action.appendChild (edit);
+                      action.appendChild(move);
+
+
+
+                
+                box.appendChild(action);
+                box.appendChild(taskText);
+                
+
+
+                return box;
+
+            }
+            function updateCounters (){
+                const count = parent=>parent.querySelectorAll('.task-text').length;
+                todoCount.textContent=count(todos);
+                inProgressCount.textContent=count(inProgress)
+                completedCount.textContent=count(completed)
+                totalCount.textContent= count(todos)+count(inProgress)+count(completed)
+            }
+            // Get and clean input
+            // Create the task element
+            // Add it to the "To Do" section
+            // Clear input field
+        // Update task stats
+            //...........................................................................................
+
+
+        // Also add an event listener to input allow adding a task with Enter key
+            // Trigger button click on Enter
+            //...........................................................................................
+
+
+
+        // 📦 Function to CREATE a task element and attach actions to it (text in params)
+
+            // create(box)Main container for the task and give it a classname
+            // Task text container with className and adding text to its content
+            // Action buttons container and give it a className
+            //...........................................................................................
+
+
+
+        // 🔁 UPDATE: Move task to next stage (To Do → In Progress → Completed → To Do)
+
+            //create a move button element, give it a className and textcontent of arrow icon
+            //give it an onclick and check if box.prentElement == todo then append childs then after all update counters
+            //'&#8594;'; // Arrow icon
+            // To Do → In Progress
+            // In Progress → Completed
+            // Completed → To Do (loop back)
+            //...........................................................................................
+
+
+        // ✏️ UPDATE: Edit task text, same  then prompt user by adding textcontent to content in box then add new text to it
+            // "&#9998;Pencil icon
+            // Prompt for new text
+            // If user entered something, update the text
+            //...........................................................................................
+
+
+        // ❌ DELETE: Remove task from the board, by removing box and update counters
+            //'&#10006;'; // X icon
+            // Remove the entire task box
+            // Update stats after deletion
+            //...........................................................................................
+
+        // Add action buttons to action container(append 3 childs to actions)
+            // Assemble the task box(append childs to box)
+            // Return the created task box element
+            //...........................................................................................
+        
+
+        // 📊 Function to count tasks in each section and update UI
+                //create count with parent geting queryselector for all tasl-item in card then .length
+            //add textcontents to counters using counter(task)
+                // Count tasks in "To Do"
+                // Count tasks in "In Progress"
+                // Count tasks in "Completed"
+                // Total tasks
+            //...........................................................................................
+        
+</script>
+</body>
+</html>

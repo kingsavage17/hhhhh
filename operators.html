@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Operators</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 60%; }
+        th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+        th { background: #f4f4f4; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Operators</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Operator</th>
+                <th>Name</th>
+                <th>Example</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>+</td>
+                <td>Addition</td>
+                <td>5 + 3</td>
+                <td><span id="add"></span></td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>Subtraction</td>
+                <td>5 - 3</td>
+                <td><span id="sub"></span></td>
+            </tr>
+            <tr>
+                <td>*</td>
+                <td>Multiplication</td>
+                <td>5 * 3</td>
+                <td><span id="mul"></span></td>
+            </tr>
+            <tr>
+                <td>/</td>
+                <td>Division</td>
+                <td>5 / 3</td>
+                <td><span id="div"></span></td>
+            </tr>
+            <tr>
+                <td>%</td>
+                <td>Modulus</td>
+                <td>5 % 3</td>
+                <td><span id="mod"></span></td>
+            </tr>
+            <tr>
+                <td>==</td>
+                <td>Equality</td>
+                <td>5 == '5'</td>
+                <td><span id="eq"></span></td>
+            </tr>
+            <tr>
+                <td>===</td>
+                <td>Strict Equality</td>
+                <td>5 === '5'</td>
+                <td><span id="seq"></span></td>
+            </tr>
+            <tr>
+                <td>&gt;</td>
+                <td>Greater Than</td>
+                <td>5 &gt; 3</td>
+                <td><span id="gt"></span></td>
+            </tr>
+            <tr>
+                <td>&lt;</td>
+                <td>Less Than</td>
+                <td>5 &lt; 3</td>
+                <td><span id="lt"></span></td>
+            </tr>
+            <tr>
+                <td>&&</td>
+                <td>Logical AND</td>
+                <td>(5 &gt; 3) && (3 &gt; 1)</td>
+                <td><span id="and"></span></td>
+            </tr>
+            <tr>
+                <td>||</td>
+                <td>Logical OR</td>
+                <td>(5 &lt; 3) || (3 &gt; 1)</td>
+                <td><span id="or"></span></td>
+            </tr>
+            <tr>
+                <td>!</td>
+                <td>Logical NOT</td>
+                <td>!(5 &lt; 3)</td>
+                <td><span id="not"></span></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        document.getElementById('add').textContent = 5 + 3;
+        document.getElementById('sub').textContent = 5 - 3;
+        document.getElementById('mul').textContent = 5 * 3;
+        document.getElementById('div').textContent = (5 / 3).toFixed(2);
+        document.getElementById('mod').textContent = 5 % 3;
+        document.getElementById('eq').textContent = 5 == '5';
+        document.getElementById('seq').textContent = 5 === '5';
+        document.getElementById('gt').textContent = 5 > 3;
+        document.getElementById('lt').textContent = 5 < 3;
+        document.getElementById('and').textContent = (5 > 3) && (3 > 1);
+        document.getElementById('or').textContent = (5 < 3) || (3 > 1);
+        document.getElementById('not').textContent = !(5 < 3);
+    </script>
+</body>
+</html>

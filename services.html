@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>If Condition Project</title>
+</head>
+<body>
+    <h1>If Condition Example</h1>
+    <label for="numberInput">Enter a number:</label>
+    <input type="number" id="numberInput">
+    <button onclick="checkNumber()">Check</button>
+    <p id="result"></p>
+
+    <script>
+        function checkNumber() {
+            const num = parseInt(document.getElementById('numberInput').value);
+            let message = '';
+
+            if (num > 0) {
+                message = 'The number is positive.';
+            } else if (num < 0) {
+                message = 'The number is negative.';
+            } else if (num === 0) {
+                message = 'The number is zero.';
+            } else {
+                message = 'Please enter a valid number.';
+            }
+
+            document.getElementById('result').textContent = message;
+        }
+    </script>
+</body>
+</html>

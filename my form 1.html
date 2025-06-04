@@ -1,0 +1,79 @@
+<DOCTYPE html>
+<html>
+<head>
+<title>myfirstform</title>
+</head>
+<body>
+<marquee direction="left" scrollamount="30"><h1 style="color:blue" title="i'm called a tooltip">REGISTRATION FORM</h1></marquee>
+
+<fieldset style="background-color:yellow;width:300">
+<legend style="background-color:rgb(30, 255, 0)"><b>PERSON IDENTIFICATION</b></legend>
+<form>
+<table>
+<tr>
+<td><label> NAMES:</label></td>
+<td><input type="text" minlength="4" maxlength="10" placeholder="Enter your names" required> </td></tr>
+<tr>
+<td><label> PASSWORD:</label></td>
+<td><input type="Password"></td>
+</tr>
+<tr>
+<td><label> E_MAIL:</label> </td>
+<td><input type="text" placeholder="example@gmail.com"> </td>
+<td><div class="input-box"></td>
+</tr>
+<tr>
+<td><label> DateOfBirth:</label></td>
+           <td> <input type="date" placeholder="Enter birth date" required /></td>
+          </div></tr>
+<tr>
+<td><label> LEVEL:</label></td>
+<td><input type="number" min="3" max="5"></td>
+</tr>
+
+<tr>
+<td><label> MODULE:</label></td>
+<td><select>
+<option>website development</option>
+<option>Tourism</option>
+</select></td>
+</tr>
+
+<tr>
+<td><label>SEX:</label></td>
+<td><label>Female</label></td>
+<td><input type ="radio" name= "gender"></td>
+<td><label>Male</label></td>
+<td><input type ="radio" name= "gender"></td>
+</tr>
+<tr>
+<td><label>TELEPHONE</label>
+<td><input type="tel"></td>
+</tr>
+<tr>
+<td><label>FAVOURITE FRUIT</label></td
+<input type ="checkbox">
+<td><label>Orange</label>
+<input type ="checkbox"></td>
+<td><label>Apple</label></td>
+<td><input type ="checkbox"></td>
+<td><label>Strawberry</label></td>
+<td><input type ="checkbox"></td>
+<td><label>Mango</label>
+  <input type ="checkbox"></td>
+</tr>
+<tr>
+<td><label>Leave your Comment</label></td>
+<td><textarea rows="5" colos="60"></textarea><br></td>
+<td><label>At which extent do you like WEBDEV?</label></td>
+<td><input type="range"><br></td>
+<td><label> What is your color? </label></td>
+<td><input type="color"><br></td>
+<td><label>Upload your file</label></td>
+<td><input type="file"></td><br></tr>
+<td><input type="submit"><br></td>
+</table>
+</form>
+</fieldset>
+</body>
+</html>
